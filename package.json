@@ -1,17 +1,21 @@
 {
-	"name": "d&d-proxy",
-	"module": "index.ts",
+	"name": "darkscanner",
+	"module": "src/index.ts",
 	"type": "module",
 	"scripts": {
+		"dev": "bun --hot src/index.ts ",
 		"start": "bun src/index.ts"
 	},
 	"devDependencies": {
-		"@types/bun": "latest"
+		"@types/bun": "latest",
+		"eslint": "^9.0.0",
+		"prettier": "^3.2.5",
+		"typescript-eslint": "^7.7.0"
 	},
 	"peerDependencies": {
 		"typescript": "^5.0.0"
 	},
 	"dependencies": {
-		"textifyimage": "^1.0.3"
+		"node-screenshots": "^0.1.9"
 	}
 }

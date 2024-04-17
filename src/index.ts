@@ -1,11 +1,12 @@
-import { $ } from 'bun'
-const tesseractPath = 'C:\\Program Files\\Tesseract-OCR'
+import { ocrImage } from './ocr'
+import { parseAll } from './parser'
+import { captureImage, captureImageAroundCursor } from './screenshot'
 
-const imagePath = 'tests/test2.jpg'
-
-const startTime = Date.now()
-const res = await $`"${tesseractPath}\\tesseract.exe" ${imagePath} stdout`.text()
-const endTime = Date.now()
-console.log(res)
-
-console.log(`Time: ${endTime - startTime}ms`)
+const mouseWorker = new Worker(new URL('mouse.worker.ts', import.meta.url).href)
+mouseWorker.onmessage = async (event) => {
+	const data = event.data as { x: number; y: number }
+	const newImage = await captureImage()
+	const ocrText = await ocrImage(newImage)
+	const parsedData = parseAll(ocrText)
+	console.log(parsedData)
+}
