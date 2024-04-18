@@ -1,16 +1,5 @@
 import { DEBUG } from '.'
-import {
-	accessories,
-	armor,
-	enchantments,
-	items,
-	questItems,
-	rarities,
-	slots,
-	treasureRarities,
-	treasures,
-	weapons,
-} from './constants'
+import { accessories, armor, enchantments, items, questItems, rarities, slots, treasures, weapons } from './constants'
 
 export function parseAll(text: string) {
 	const startParse = Date.now()
