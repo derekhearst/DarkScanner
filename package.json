@@ -4,7 +4,8 @@
 	"type": "module",
 	"scripts": {
 		"dev": "bun --hot src/index.ts ",
-		"start": "bun src/index.ts"
+		"start": "bun src/index.ts",
+		"build": "bun src/build.ts"
 	},
 	"devDependencies": {
 		"@types/bun": "latest",
