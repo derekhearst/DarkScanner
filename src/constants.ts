@@ -284,7 +284,6 @@ export const items = [
 
 	// Other
 	'Bandage',
-	'Ale',
 	'Surgical Kit',
 	'Trolls Blood',
 
