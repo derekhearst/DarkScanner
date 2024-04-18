@@ -70,7 +70,6 @@ export const weapons = [
 	// Maces
 	'Club',
 	'Flanged Mace',
-	'Lute',
 	'Morning Star',
 	'Quarterstaff',
 	'Torch',
@@ -120,8 +119,16 @@ export const weapons = [
 	'Pavise',
 	'Round Shield',
 
-	// Misc
-	'Pickaxe',
+	// Musical
+	'Lute',
+	'Lyre',
+
+	// Consumables
+	'Hunting Trap',
+	'Throwing Knife',
+	'Francisca Axe',
+	'Explosive Bottle',
+	'Trap Disarming Kit',
 ]
 
 export const armor = [
@@ -227,15 +234,6 @@ export const armor = [
 	'Stiched Turnshoe',
 	'Turnshoe',
 	'Wizard Shoes',
-
-	// Back
-	'Adventurer Cloak',
-	'Mercurial Cloak',
-	'Radiant Cloak',
-	'Splendid Cloak',
-	'Tattered Cloak',
-	'Vigilant Cloak',
-	'Watchman Cloak',
 ]
 
 export const accessories = [
@@ -262,6 +260,47 @@ export const accessories = [
 	'Ring of Survival',
 	'Ring of Vitality',
 	'Ring of Wisdom',
+
+	// Back
+	'Adventurer Cloak',
+	'Mercurial Cloak',
+	'Radiant Cloak',
+	'Splendid Cloak',
+	'Tattered Cloak',
+	'Vigilant Cloak',
+	'Watchman Cloak',
+]
+
+export const items = [
+	// Potions
+	'Potion Of Healing',
+	'Potion Of Protection',
+	'Magic Protection Potion',
+	'Invisibility Potion',
+	'Clarity Potion',
+	'Potion Of Luck',
+
+	// Other
+	'Bandage',
+	'Ale',
+	'Surgical Kit',
+	'Trolls Blood',
+
+	// Containers
+	'Gold Coin Bag',
+	'Gold Coin Chest',
+
+	//Tools
+	'Lantern',
+	'Lockpick',
+	'Oil Lantern',
+	'Mystical Gem',
+	'Old Rusty Key',
+	'Golden Key',
+	'Skull Key',
+	'Soul Heart',
+	'Campfire Kit',
+	'Pickaxe',
 ]
 
 type treasure = {

@@ -3,6 +3,7 @@ import {
 	accessories,
 	armor,
 	enchantments,
+	items,
 	questItems,
 	rarities,
 	slots,
@@ -13,25 +14,26 @@ import {
 
 export function parseAll(text: string) {
 	const startParse = Date.now()
-	const rarity = parseRarity(text)
 	const weapon = parseWeapon(text)
 	const armor = parseArmor(text)
+	const accessory = parseAccessory(text)
+	const item = parseItem(text)
 	const treasure = parseTreasure(text)
 	const questItem = parseQuestItems(text)
-	const accessory = parseAccessory(text)
 
+	const rarity = parseRarity(text)
 	const slot = parseSlot(text)
-
 	const attributes = parseAttributes(text)
 	const enchantments = parseEnchantments(text)
 
 	const data = {
 		weapon,
 		armor,
-		rarity,
-		treasure,
 		accessory,
+		item,
+		treasure,
 		questItem,
+		rarity,
 		slot,
 		attributes,
 		enchantments,
@@ -46,13 +48,6 @@ export function parseRarity(text: string) {
 	const rarityMatch = text.match(rarityRegex)
 	if (!rarityMatch) return
 	return rarityMatch[0]
-}
-
-export function parseTreasureRarity(text: string) {
-	const treasureRarityRegex = new RegExp(treasureRarities.join('|'), 'i')
-	const treasureRarityMatch = text.match(treasureRarityRegex)
-	if (!treasureRarityMatch) return
-	return treasureRarityMatch[0]
 }
 
 export function parseWeapon(text: string) {
@@ -74,11 +69,12 @@ export function parseAccessory(text: string) {
 	if (!accessoryMatch) return
 	return accessoryMatch[0]
 }
-export function parseSlot(text: string) {
-	const slotRegex = new RegExp(slots.join('|'), '')
-	const slotMatch = text.match(slotRegex)
-	if (!slotMatch) return
-	return slotMatch[0]
+
+export function parseItem(text: string) {
+	const itemRegex = new RegExp(items.join('|'), 'i')
+	const itemMatch = text.match(itemRegex)
+	if (!itemMatch) return
+	return itemMatch[0]
 }
 
 export function parseTreasure(text: string) {
@@ -95,6 +91,13 @@ export function parseQuestItems(text: string) {
 	const questItemMatch = text.match(questItemRegex)
 	if (!questItemMatch) return
 	return questItems.find((item) => item.name === questItemMatch[0])
+}
+
+export function parseSlot(text: string) {
+	const slotRegex = new RegExp(slots.join('|'), '')
+	const slotMatch = text.match(slotRegex)
+	if (!slotMatch) return
+	return slotMatch[0]
 }
 
 export function parseAttributes(text: string) {

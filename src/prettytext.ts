@@ -11,6 +11,9 @@ export function prettifyData(data: ParsedData) {
 	if (data.accessory) {
 		return `${data.rarity} ${data.accessory} : ${data.attributes.length} attributes, ${data.enchantments.length} enchantments`
 	}
+	if (data.item) {
+		return `${data.rarity} ${data.item} `
+	}
 	if (data.treasure && data.rarity) {
 		const rarityIndex = rarities.indexOf(data.rarity)
 		const value = data.treasure.values[rarityIndex]
