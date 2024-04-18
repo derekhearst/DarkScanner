@@ -1,4 +1,4 @@
-export const rarities = ['Junk', 'Poor', 'Common', 'Uncommon', 'Rare', 'Epic', 'Legendary', 'Unique']
+export const rarities = ['Junk', 'Poor', 'Common', 'Uncommon', 'Rare', 'Epic', 'Legend', 'Unique']
 
 export const slots = [
 	'Head',
