@@ -122,6 +122,8 @@ export const weapons = [
 	// Musical
 	'Lute',
 	'Lyre',
+	'Flute',
+	'Drum',
 
 	// Consumables
 	'Hunting Trap',
