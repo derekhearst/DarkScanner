@@ -1,6 +1,6 @@
 import { ocrImage } from './ocr'
 import { parseAll } from './parser'
-import { captureImage, captureImageAroundCursor } from './screenshot'
+import { captureImageAroundCursor } from './screenshot'
 import './mouse.worker'
 import { prettifyData } from './prettytext'
 export const DEBUG = false
