@@ -22,6 +22,6 @@ export function prettifyData(data: ParsedData) {
 	}
 	if (data.questItem) {
 		const pps = data.questItem.price / data.questItem.size
-		return `${data.questItem.rarity} ${data.questItem} : ${data.questItem.price} value, ${pps.toFixed(2)} pps`
+		return `${data.questItem.rarity} ${data.questItem.name} : ${data.questItem.price} value, ${pps.toFixed(2)} pps`
 	}
 }
