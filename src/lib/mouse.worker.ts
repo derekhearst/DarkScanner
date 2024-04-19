@@ -1,5 +1,4 @@
 import { dlopen, FFIType } from 'bun:ffi'
-declare var self: Worker
 
 const user32 = dlopen('user32.dll', {
 	GetAsyncKeyState: {
