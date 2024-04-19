@@ -18,6 +18,7 @@ export const enchantments = [
 	'Strength',
 	'Agility',
 	'Will',
+	'Dexterity',
 	'Knowledge',
 	'Vigor',
 	'Resourcefulness',
@@ -53,10 +54,12 @@ export const enchantments = [
 	'Buff Duration Bonus',
 	'Debuff Duration Bonus',
 	'Memory Capacity',
+	'Additional Memory Capacity',
 	'Memory Capacity Bonus',
 	'Luck',
 ]
 
+// TODO add crafted weapons
 export const weapons = [
 	// Swords
 	'Arming Sword',
@@ -165,6 +168,25 @@ export const armor = [
 	'Visored Sallet',
 	'Wizard Hat',
 
+	// Crafted Heads
+	'Colbalt Chapel De Fer',
+	'Cobalt Hat',
+	'Cobalt Hood',
+	'Cobalt Viking Helm',
+	'Copperlight Kettle Hat',
+	'Copperlight Shadow Hood',
+	'Copperlight Straw Hat',
+	'Cowl Of Darkness',
+	'Dread Hood',
+	'Golden Armet',
+	'Golden Gjermundbu',
+	'Golden Houndskull',
+	'Golden Leaf Hood',
+	'Golden Scarf',
+	'Rubysilver Barbuta Helm',
+	'Rubysilver Cap',
+	'Rubysilver Hood',
+
 	// Chestplates
 	'Adventurer Tunic',
 	'Champion Armor',
@@ -195,6 +217,23 @@ export const armor = [
 	'Wanderer Attire',
 	'Warden Outfit',
 
+	// Crafted Chests
+	'Cobalt Frock',
+	'Cobalt Regal Gambeson',
+	'Cobalt Templar Armor',
+	'Copperlight Attire',
+	'Copperlight Outfit',
+	'Copperlight Sanctum Plate Armor',
+	'Copperlight Tunic',
+	'Golden Paddec Tunic',
+	'Golden Plate',
+	'Robe of Darkness',
+	'Rubysilver Cuirass',
+	'Rubysilver Doublet',
+	'Rubysilver Vestments',
+	'Tri-Pelt Doublet',
+	'Tri-Pelt Northern Full Tunic',
+
 	// Leggings
 	'Bardic Pants',
 	'Cloth Pants',
@@ -207,6 +246,21 @@ export const armor = [
 	'Padded Leggings',
 	'Plate Pants',
 
+	// Crafted Legs
+	'Brave Hunters Pants',
+	'Cobalt Plate Pants',
+	'Cobalt Trousers',
+	'Copperlight Leggings',
+	'Copperlight Pants',
+	'Copperlight Plate Pants',
+	'Demonclad Leggings',
+	'Golden Chausses',
+	'Golden Leggings',
+	'Golden Plate Pants',
+	'Rubysilver Leggings',
+	'Rubysilver Plate Pants',
+	'Wolf Hunter Leggings',
+
 	// Hands
 	'Elkwood Gloves',
 	'Gloves of Utility',
@@ -218,6 +272,18 @@ export const armor = [
 	'Reinforced Gloves',
 	'Riveted Gloves',
 	'Runestone Gloves',
+
+	// Crafted Hands
+	'Cobalt Heavy Gauntlet',
+	'Cobalt Leather Gloves',
+	'Copperlight Gauntlets',
+	'Copperlight Riveted Gloves',
+	'Demon Grip Gloves',
+	'Golden Gauntlets',
+	'Golden Gloves',
+	'Gravewolf Gloves',
+	'Rubysilver Gauntlets',
+	'Rubysilver Rawhide Gloves',
 
 	// Feet
 	'Adventurer Boots',
@@ -236,6 +302,18 @@ export const armor = [
 	'Stiched Turnshoe',
 	'Turnshoe',
 	'Wizard Shoes',
+
+	// Crafted Feet
+	'Cobalt Lightfoot Boots',
+	'Cobalt Plate Boots',
+	'Copperlight Lightfoot Boots',
+	'Copperlight Plate Boots',
+	'Foul Boots',
+	'Golden Boots',
+	'Golden Plate Boots',
+	'Rubysilver Adventurer Boots',
+	'Rubysilver Plate Boots',
+	'Shoes of Darkness',
 ]
 
 export const accessories = [
@@ -271,6 +349,9 @@ export const accessories = [
 	'Tattered Cloak',
 	'Vigilant Cloak',
 	'Watchman Cloak',
+	// Crafted Back
+	'Cloak of Darkness',
+	'Golden Cloak',
 ]
 
 export const items = [
@@ -288,6 +369,7 @@ export const items = [
 	'Trolls Blood',
 
 	// Containers
+	'Gold Coin Purse',
 	'Gold Coin Bag',
 	'Gold Coin Chest',
 
@@ -302,6 +384,18 @@ export const items = [
 	'Soul Heart',
 	'Campfire Kit',
 	'Pickaxe',
+]
+
+export const manualFixes = [
+	{ bad: 'Fatcnion', good: 'Falchion' },
+	{
+		bad: 'Heavy Leather Leggings using the pelts',
+		good: '',
+	},
+	{
+		bad: 'remain resolute',
+		good: '',
+	},
 ]
 
 type treasure = {
