@@ -59,7 +59,6 @@ export const enchantments = [
 	'Luck',
 ]
 
-// TODO add crafted weapons
 export const weapons = [
 	// Swords
 	'Arming Sword',
@@ -70,6 +69,18 @@ export const weapons = [
 	'Viking Sword',
 	'Zweihander',
 
+	// Crafted Swords
+	'Blade of Righteousness',
+	"Demon's Glee",
+	'Divine Blade',
+	'Divine Short Sword',
+	'Falchion of Honor',
+	'Golden Viking Sword',
+	'Short Sword of Righteousness',
+	'Sterling Blade',
+	'Sterling Short Sword',
+	'Void Blade',
+
 	// Maces
 	'Club',
 	'Flanged Mace',
@@ -79,6 +90,17 @@ export const weapons = [
 	'War Hammer',
 	'War Maul',
 
+	// Crafted Maces
+	'Boneshaper',
+	'Divine Rod',
+	'Divine Staff',
+	'Light Bringer',
+	'Rod of Righteousness',
+	'Staff of Righteousness',
+	'Sterling Rod',
+	'Sterling Staff',
+	"Troll's Bane",
+
 	// Daggers
 	'Castillon Dagger',
 	'Kris Dager',
@@ -86,10 +108,18 @@ export const weapons = [
 	'Stiletto Dagger',
 	'Throwing Knife',
 
+	// Crafted Daggers
+	'Dagger of Righteousness',
+	'Divine Dagger',
+	'Sterling Dagger',
+
 	// Polearms
 	'Bardiche',
 	'Halberd',
 	'Spear',
+
+	// Crafted Polearms
+	'Spear Of Rot',
 
 	// Axes
 	'Battle Axe',
@@ -99,10 +129,22 @@ export const weapons = [
 	'Hatchet',
 	"Horseman's Axe",
 
+	// Crafted Axes
+	'Axe of Righteousness',
+	'Divine Axe',
+	'Golden Felling Axe',
+	'Sterling Axe',
+
 	// Bows
 	'Longbow',
 	'Recurve Bow',
 	'Survival Bow',
+
+	// Crafted Bows
+	'Bow of Righteousness',
+	"Centaur's Madness",
+	'Divine Bow',
+	'Sterling Bow',
 
 	// Crossbows
 	'Crossbow',
@@ -115,6 +157,10 @@ export const weapons = [
 	'Crystal Sword',
 	'Magic Staff',
 	'Spellbook',
+
+	// Crafted Magical
+	'Cyclops Vision Crystal',
+	'Mana Sphere',
 
 	// Shields
 	'Buckler',
