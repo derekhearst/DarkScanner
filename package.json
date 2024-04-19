@@ -1,22 +1,23 @@
 {
-	"name": "darkscanner",
-	"module": "src/index.ts",
-	"type": "module",
-	"scripts": {
-		"dev": "bun --hot src/index.ts ",
-		"start": "bun src/index.ts",
-		"build": "bun src/build.ts"
-	},
-	"devDependencies": {
-		"@types/bun": "latest",
-		"eslint": "^9.0.0",
-		"prettier": "^3.2.5",
-		"typescript-eslint": "^7.7.0"
-	},
-	"peerDependencies": {
-		"typescript": "^5.0.0"
-	},
-	"dependencies": {
-		"node-screenshots": "^0.1.9"
-	}
+  "name": "darkscanner",
+  "module": "src/index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --hot src/index.ts ",
+    "start": "bun src/index.ts",
+    "build": "bun src/build.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "eslint": "^9.0.0",
+    "prettier": "^3.2.5",
+    "typescript-eslint": "^7.7.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "node-screenshots": "^0.1.9",
+    "sharp": "^0.33.3"
+  }
 }
