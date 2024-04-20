@@ -1,7 +1,6 @@
 import { env } from 'bun'
 import { ocrImage } from './lib/ocr'
 import { parseItemDetails, parsePrice } from './lib/parser'
-import { prettifyData } from './lib/prettytext'
 import { captureItemDetails, capturePrice } from './lib/screenshot'
 import { clickMouse, getMousePosition, moveMouse } from './lib/user32'
 
@@ -37,17 +36,7 @@ console.log(
 await waitForMouseWorkerMessage()
 const pricePosition = getMousePosition()
 
-// console.log('Please input the amount of items displayed on the screen:')
 const itemCount = 10
-// for await (let line of console) {
-// 	itemCount = parseInt(line)
-// 	if (isNaN(itemCount)) {
-// 		console.log('Please input a valid number')
-// 	} else {
-// 		console.log('Amount of items displayed on the screen:', itemCount)
-// 		break
-// 	}
-// }
 
 console.log("Please input the amount of pages you'd like to scan:")
 let scanCount = 0
@@ -65,8 +54,7 @@ await waitForMouseWorkerMessage()
 await wait(1000)
 
 for (let cycles = 0; cycles < scanCount; cycles++) {
-	await clickMouse(refreshButtonPosition.x, refreshButtonPosition.y)
-	await wait(4000)
+	await wait(2000)
 	for (let item = 0; item < itemCount; item++) {
 		const itemPos = {
 			x: itemPosition.x,
@@ -84,10 +72,9 @@ for (let cycles = 0; cycles < scanCount; cycles++) {
 		const ocrItem = await ocrImage(itemPath)
 		const parsedPrice = parsePrice(ocrPrice)
 		const parsedItem = parseItemDetails(ocrItem)
-		const prettyItemText = prettifyData(parsedItem)
-		console.log('Item:', prettyItemText, 'Price:', parsedPrice)
 		if (parsedPrice && parsedItem.item && parsedItem.rarity) {
-			await fetch('https://darkscanner.dev/api/item/' + parsedItem.item.id + '/price', {
+			console.log('Item:', parsedItem.rarity.name, parsedItem.item.name, 'Price:', parsedPrice)
+			const res = await fetch('https://darkscanner.dev/api/item/' + parsedItem.item.id + '/price', {
 				method: 'POST',
 				body: JSON.stringify({
 					...parsedItem,
@@ -98,10 +85,14 @@ for (let cycles = 0; cycles < scanCount; cycles++) {
 					'Content-Type': 'application/json',
 				},
 			})
+			if (!res.ok) {
+				console.log('Failed to send data to server')
+			}
 		}
 
-		await wait(200)
+		await wait(50)
 	}
+	await clickMouse(refreshButtonPosition.x, refreshButtonPosition.y)
 }
 
 // cleanup here

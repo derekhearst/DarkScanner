@@ -2,9 +2,8 @@ import { ocrImage } from './lib/ocr'
 import { parseItemDetails } from './lib/parser'
 import { captureItemDetails } from './lib/screenshot'
 import './lib/mouse.worker'
-import { prettifyData } from './lib/prettytext'
 import { getMousePosition } from './lib/user32'
-import { getItemPrice } from './lib/server'
+import { getItemPrice, logFailure } from './lib/server'
 export const DEBUG = true
 const mouseWorker = new Worker(new URL('lib/mouse.worker.ts', import.meta.url).href)
 mouseWorker.onmessage = async () => {
@@ -16,6 +15,7 @@ mouseWorker.onmessage = async () => {
 		const itemPrice = await getItemPrice(data.item, data.rarity, data.enchantments)
 		console.log(data.rarity.name, data.item.name, itemPrice)
 	} else {
+		await logFailure(ocrText)
 		console.log('Error parsing data', ocrText)
 	}
 }

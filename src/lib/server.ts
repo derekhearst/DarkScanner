@@ -26,10 +26,24 @@ export async function getItemPrice(item: Item, rarity: Rarity, enchantments: Enc
 		`https://darkscanner.dev/api/item/${item.id}/price?rarity=${rarity.id}&enchantments=${enchantments.map((e) => e.id).join(',')}`,
 		{
 			method: 'GET',
+			headers: {
+				token: token,
+			},
 		}
 	)
 	const price = await res.json()
 	return price
+}
+
+export async function logFailure(text: string) {
+	const res = await fetch('https://darkscanner.dev/api/failure', {
+		method: 'POST',
+		body: text,
+		headers: {
+			token: token,
+		},
+	})
+	return res
 }
 
 async function getItems() {
@@ -37,6 +51,9 @@ async function getItems() {
 	if (!(await file.exists())) {
 		const res = await fetch('https://darkscanner.dev/api/item', {
 			method: 'GET',
+			headers: {
+				token: token,
+			},
 		})
 		const items = (await res.json()) as Item[]
 		const data = {
@@ -55,6 +72,9 @@ export async function getRarities() {
 	if (!(await file.exists())) {
 		const res = await fetch('https://darkscanner.dev/api/rarity', {
 			method: 'GET',
+			headers: {
+				token: token,
+			},
 		})
 		const rarities = (await res.json()) as Rarity[]
 		const data = {
@@ -74,6 +94,9 @@ export async function getEnchantments() {
 	if (!(await file.exists())) {
 		const res = await fetch('https://darkscanner.dev/api/enchantment', {
 			method: 'GET',
+			headers: {
+				token: token,
+			},
 		})
 		const enchantments = (await res.json()) as Enchantment[]
 		const data = {
@@ -92,6 +115,9 @@ export async function getFixes() {
 	if (!(await file.exists())) {
 		const res = await fetch('https://darkscanner.dev/api/fix', {
 			method: 'GET',
+			headers: {
+				token: token,
+			},
 		})
 		const fixes = (await res.json()) as Fix[]
 		const data = {
@@ -104,6 +130,26 @@ export async function getFixes() {
 	const data = await file.json()
 	return data.fixes as Fix[]
 }
+
+export async function getToken() {
+	const file = Bun.file(storageFolder + 'token.json')
+	if (!(await file.exists())) {
+		const res = await fetch('https://darkscanner.dev/api/token', {
+			method: 'GET',
+		})
+		const token = await res.text()
+		const data = {
+			date: Date.now(),
+			token: token,
+		}
+		console.log(token)
+		Bun.write(file, JSON.stringify(data))
+		return token
+	}
+	const data = await file.json()
+	return data.token as string
+}
+const token = await getToken()
 
 export const items = await getItems()
 export const rarities = await getRarities()
