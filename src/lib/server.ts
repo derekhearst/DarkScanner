@@ -27,7 +27,7 @@ export async function getItemPrice(item: Item, rarity: Rarity, enchantments: Enc
 		{
 			method: 'GET',
 			headers: {
-				token: token,
+				Authorization: 'Basic ' + token,
 			},
 		}
 	)
@@ -40,19 +40,19 @@ export async function logFailure(text: string) {
 		method: 'POST',
 		body: text,
 		headers: {
-			token: token,
+			Authorization: 'Basic ' + token,
 		},
 	})
 	return res
 }
 
-async function getItems() {
+async function getItems(token: string) {
 	const file = Bun.file(storageFolder + 'items.json')
 	if (!(await file.exists())) {
 		const res = await fetch('https://darkscanner.dev/api/item', {
 			method: 'GET',
 			headers: {
-				token: token,
+				Authorization: 'Basic ' + token,
 			},
 		})
 		const items = (await res.json()) as Item[]
@@ -67,13 +67,13 @@ async function getItems() {
 	return data.items as Item[]
 }
 
-export async function getRarities() {
+export async function getRarities(token: string) {
 	const file = Bun.file(storageFolder + 'rarities.json')
 	if (!(await file.exists())) {
 		const res = await fetch('https://darkscanner.dev/api/rarity', {
 			method: 'GET',
 			headers: {
-				token: token,
+				Authorization: 'Basic ' + token,
 			},
 		})
 		const rarities = (await res.json()) as Rarity[]
@@ -89,13 +89,13 @@ export async function getRarities() {
 	return data.rarities as Rarity[]
 }
 
-export async function getEnchantments() {
+export async function getEnchantments(token: string) {
 	const file = Bun.file(storageFolder + 'enchantments.json')
 	if (!(await file.exists())) {
 		const res = await fetch('https://darkscanner.dev/api/enchantment', {
 			method: 'GET',
 			headers: {
-				token: token,
+				Authorization: 'Basic ' + token,
 			},
 		})
 		const enchantments = (await res.json()) as Enchantment[]
@@ -110,13 +110,13 @@ export async function getEnchantments() {
 	return data.enchantments as Enchantment[]
 }
 
-export async function getFixes() {
+export async function getFixes(token: string) {
 	const file = Bun.file(storageFolder + 'fixes.json')
 	if (!(await file.exists())) {
 		const res = await fetch('https://darkscanner.dev/api/fix', {
 			method: 'GET',
 			headers: {
-				token: token,
+				Authorization: 'Basic ' + token,
 			},
 		})
 		const fixes = (await res.json()) as Fix[]
@@ -140,7 +140,7 @@ export async function getToken() {
 		const token = await res.text()
 		const data = {
 			date: Date.now(),
-			token: token,
+			Authorization: 'Basic ' + token,
 		}
 		console.log(token)
 		Bun.write(file, JSON.stringify(data))
@@ -150,8 +150,9 @@ export async function getToken() {
 	return data.token as string
 }
 const token = await getToken()
+console.log(token)
 
-export const items = await getItems()
-export const rarities = await getRarities()
-export const enchantments = await getEnchantments()
-export const fixes = await getFixes()
+export const items = await getItems(token)
+export const rarities = await getRarities(token)
+export const enchantments = await getEnchantments(token)
+export const fixes = await getFixes(token)
