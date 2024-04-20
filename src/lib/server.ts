@@ -140,9 +140,8 @@ export async function getToken() {
 		const token = await res.text()
 		const data = {
 			date: Date.now(),
-			Authorization: 'Basic ' + token,
+			token: token,
 		}
-		console.log(token)
 		Bun.write(file, JSON.stringify(data))
 		return token
 	}
