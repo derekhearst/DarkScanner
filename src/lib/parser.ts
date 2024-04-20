@@ -1,4 +1,4 @@
-import { enchantments, fixes, items, rarities } from './server'
+import { enchantments, fixes, items, rarities, type Enchantment } from './server'
 
 const DEBUG = false
 export function parseItemDetails(text: string) {
@@ -36,26 +36,37 @@ export function parseItem(text: string) {
 }
 
 export function parseEnchantments(text: string) {
-	const enchantmentRegex = new RegExp(
-		`(-+|\\++|~+)?\\d+%?(.\\d+%)? (${enchantments.map((e) => e.name).join('|')})`,
-		'ig'
-	)
-	const justNumberRegex = /(-|\+)?\d+%?(.\d+%)?/
-	const justNameRegex = new RegExp(enchantments.map((e) => e.name).join('|'), 'i')
-	const enchantmentMatches = text.matchAll(enchantmentRegex)
-	const allEnchantments = Array.from(enchantmentMatches, (match) => {
-		const number = match[0].match(justNumberRegex)
-		const name = match[0].match(justNameRegex)
+	const regex = new RegExp(enchantments.map((e) => e.name).join('|'), 'i')
+	const matches = text.matchAll(regex)
+	const matchArray = Array.from(matches)
+	const foundEnchantments: Enchantment[] = []
+	for (const match of matchArray) {
+		const enchantment = enchantments.find((e) => e.name.toLocaleLowerCase() == match[0].toLowerCase())
+		if (!enchantment) continue
+		foundEnchantments.push(enchantment)
+	}
 
-		if (!name) return
-		if (!number) return
-		const enchantment = enchantments.find((e) => e.name.toLocaleLowerCase() == name[0].toLowerCase())
-		return {
-			enchantment: enchantment,
-			value: parseFloat(number[0]),
-		}
-	})
-	return allEnchantments
+	// #region old Code
+	// const enchantmentRegex = new RegExp(
+	// 	`(-+|\\++|~+)?\\d+%?(.\\d+%)? (${enchantments.map((e) => e.name).join('|')})`,
+	// 	'ig'
+	// )
+	// const justNumberRegex = /(-|\+)?\d+%?(.\d+%)?/
+	// const enchantmentMatches = text.matchAll(enchantmentRegex)
+	// const allEnchantments = Array.from(enchantmentMatches, (match) => {
+	// 	const number = match[0].match(justNumberRegex)
+	// 	const name = match[0].match(justNameRegex)
+
+	// 	if (!name) return
+	// 	if (!number) return
+	// 	const enchantment = enchantments.find((e) => e.name.toLocaleLowerCase() == name[0].toLowerCase())
+	// 	return {
+	// 		enchantment: enchantment,
+	// 		value: parseFloat(number[0]),
+	// 	}
+	// })
+	// #endregion
+	return foundEnchantments
 }
 
 export function parsePrice(text: string) {

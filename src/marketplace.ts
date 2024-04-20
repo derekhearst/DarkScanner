@@ -1,3 +1,4 @@
+import { env } from 'bun'
 import { ocrImage } from './lib/ocr'
 import { parseItemDetails, parsePrice } from './lib/parser'
 import { prettifyData } from './lib/prettytext'
@@ -23,7 +24,6 @@ console.log('Please put your mouse over the refresh button and press the middle 
 
 await waitForMouseWorkerMessage()
 const refreshButtonPosition = getMousePosition()
-console.log('Refresh button position:', refreshButtonPosition)
 
 console.log(
 	"Please put your mouse inside the first item's static attribute diamond and press the middle mouse button to log the position"
@@ -56,7 +56,6 @@ for await (const line of console) {
 	if (isNaN(scanCount)) {
 		console.log('Please input a valid number')
 	} else {
-		console.log('Amount of items to scan:', scanCount)
 		break
 	}
 }
@@ -87,6 +86,19 @@ for (let cycles = 0; cycles < scanCount; cycles++) {
 		const parsedItem = parseItemDetails(ocrItem)
 		const prettyItemText = prettifyData(parsedItem)
 		console.log('Item:', prettyItemText, 'Price:', parsedPrice)
+		if (parsedPrice && parsedItem.item && parsedItem.rarity) {
+			await fetch('http://localhost:5173/api/item/' + parsedItem.item.id + '/price', {
+				method: 'POST',
+				body: JSON.stringify({
+					...parsedItem,
+					price: parsedPrice,
+				}),
+				headers: {
+					'x-api-key': env.API_KEY!,
+					'Content-Type': 'application/json',
+				},
+			})
+		}
 
 		await wait(200)
 	}

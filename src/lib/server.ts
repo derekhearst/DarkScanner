@@ -6,31 +6,34 @@ const raritiesFile = Bun.file(storageFolder + 'rarities.json')
 const enchantmentsFile = Bun.file(storageFolder + 'enchantments.json')
 const fixesFile = Bun.file(storageFolder + 'fixes.json')
 
-type Fix = {
+export type Fix = {
 	id: number
 	from: string
 	to: string
 }
 
-type Item = {
+export type Item = {
 	id: number
 	name: string
 }
 
-type Rarity = {
+export type Rarity = {
 	id: number
 	name: string
 }
 
-type Enchantment = {
+export type Enchantment = {
 	id: number
 	name: string
 }
 
-export async function getItemPrice(itemId: number, enchantmentIds: number[]) {
-	const res = await fetch(`http://localhost:5173/api/item/${itemId}/price?enchantments=${enchantmentIds.join(',')}`, {
-		method: 'GET',
-	})
+export async function getItemPrice(item: Item, rarity: Rarity, enchantments: Enchantment[]) {
+	const res = await fetch(
+		`http://localhost:5173/api/item/${item.id}/price?rarity=${rarity.id}&?enchantments=${enchantments.map((e) => e.id).join(',')}`,
+		{
+			method: 'GET',
+		}
+	)
 	const price = await res.json()
 	return price
 }
