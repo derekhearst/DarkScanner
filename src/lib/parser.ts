@@ -36,7 +36,7 @@ export function parseItem(text: string) {
 }
 
 export function parseEnchantments(text: string) {
-	const regex = new RegExp(enchantments.map((e) => e.name).join('|'), 'i')
+	const regex = new RegExp(enchantments.map((e) => e.name).join('|'), 'ig')
 	const matches = text.matchAll(regex)
 	const matchArray = Array.from(matches)
 	const foundEnchantments: Enchantment[] = []

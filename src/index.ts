@@ -14,8 +14,8 @@ mouseWorker.onmessage = async () => {
 	const data = parseItemDetails(ocrText)
 	if (data.item && data.rarity && data.enchantments) {
 		const itemPrice = await getItemPrice(data.item, data.rarity, data.enchantments)
-		console.log(data.rarity, data.item, itemPrice)
+		console.log(data.rarity.name, data.item.name, itemPrice)
 	} else {
-		console.log('Error parsing data')
+		console.log('Error parsing data', ocrText)
 	}
 }

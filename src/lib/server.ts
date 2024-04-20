@@ -29,7 +29,7 @@ export type Enchantment = {
 
 export async function getItemPrice(item: Item, rarity: Rarity, enchantments: Enchantment[]) {
 	const res = await fetch(
-		`http://localhost:5173/api/item/${item.id}/price?rarity=${rarity.id}&?enchantments=${enchantments.map((e) => e.id).join(',')}`,
+		`http://localhost:5173/api/item/${item.id}/price?rarity=${rarity.id}&enchantments=${enchantments.map((e) => e.id).join(',')}`,
 		{
 			method: 'GET',
 		}
