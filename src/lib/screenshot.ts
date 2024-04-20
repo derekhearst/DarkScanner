@@ -1,9 +1,8 @@
 import { Screenshots } from 'node-screenshots'
-import { readdir, rm } from 'node:fs/promises'
 import sharp from 'sharp'
 const DEBUG = false
 
-export async function captureItemDetails(x: number, y: number) {
+export async function captureItemDetails(x: number) {
 	let capturer = Screenshots.fromPoint(0, 0)
 
 	const startTime = Date.now()
@@ -14,7 +13,7 @@ export async function captureItemDetails(x: number, y: number) {
 
 	// Params to change
 	const height = screenHeight
-	let yPos = capturer.y
+	const yPos = capturer.y
 	let width = 400
 	let xPos = x + 20
 	if (xPos + width > screenWidth) {

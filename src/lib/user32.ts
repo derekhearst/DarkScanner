@@ -1,4 +1,4 @@
-import { dlopen, FFIType, CString } from 'bun:ffi'
+import { dlopen, FFIType } from 'bun:ffi'
 const DEBUG = false
 const user32 = dlopen('user32.dll', {
 	GetCursorPos: {

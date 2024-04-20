@@ -38,7 +38,7 @@ await waitForMouseWorkerMessage()
 const pricePosition = getMousePosition()
 
 // console.log('Please input the amount of items displayed on the screen:')
-let itemCount = 10
+const itemCount = 10
 // for await (let line of console) {
 // 	itemCount = parseInt(line)
 // 	if (isNaN(itemCount)) {
@@ -51,7 +51,7 @@ let itemCount = 10
 
 console.log("Please input the amount of pages you'd like to scan:")
 let scanCount = 0
-for await (let line of console) {
+for await (const line of console) {
 	scanCount = parseInt(line)
 	if (isNaN(scanCount)) {
 		console.log('Please input a valid number')
@@ -80,13 +80,13 @@ for (let cycles = 0; cycles < scanCount; cycles++) {
 		await moveMouse(itemPos.x, itemPos.y)
 		await wait(20)
 		const pricePath = await capturePrice(pricePos.x, pricePos.y)
-		const itemPath = await captureItemDetails(itemPosition.x, itemPosition.y)
+		const itemPath = await captureItemDetails(itemPosition.x)
 		const ocrPrice = await ocrImage(pricePath)
 		const ocrItem = await ocrImage(itemPath)
 		const parsedPrice = parsePrice(ocrPrice)
 		const parsedItem = parseItemDetails(ocrItem)
 		const prettyItemText = prettifyData(parsedItem)
-		console.log('Item:', prettyItemText, 'Price:', parsedPrice, ocrItem)
+		console.log('Item:', prettyItemText, 'Price:', parsedPrice)
 
 		await wait(200)
 	}
