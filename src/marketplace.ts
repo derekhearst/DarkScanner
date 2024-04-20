@@ -87,7 +87,7 @@ for (let cycles = 0; cycles < scanCount; cycles++) {
 		const prettyItemText = prettifyData(parsedItem)
 		console.log('Item:', prettyItemText, 'Price:', parsedPrice)
 		if (parsedPrice && parsedItem.item && parsedItem.rarity) {
-			await fetch('http://localhost:5173/api/item/' + parsedItem.item.id + '/price', {
+			await fetch('https://darkscanner.dev/api/item/' + parsedItem.item.id + '/price', {
 				method: 'POST',
 				body: JSON.stringify({
 					...parsedItem,

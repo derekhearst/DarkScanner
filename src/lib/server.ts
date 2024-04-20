@@ -1,10 +1,4 @@
-import { date } from 'drizzle-orm/mysql-core'
-
 const storageFolder = process.env.APPDATA + '/darkscanner/'
-const itemsFile = Bun.file(storageFolder + 'items.json')
-const raritiesFile = Bun.file(storageFolder + 'rarities.json')
-const enchantmentsFile = Bun.file(storageFolder + 'enchantments.json')
-const fixesFile = Bun.file(storageFolder + 'fixes.json')
 
 export type Fix = {
 	id: number
@@ -29,7 +23,7 @@ export type Enchantment = {
 
 export async function getItemPrice(item: Item, rarity: Rarity, enchantments: Enchantment[]) {
 	const res = await fetch(
-		`http://localhost:5173/api/item/${item.id}/price?rarity=${rarity.id}&enchantments=${enchantments.map((e) => e.id).join(',')}`,
+		`https://darkscanner.dev/api/item/${item.id}/price?rarity=${rarity.id}&enchantments=${enchantments.map((e) => e.id).join(',')}`,
 		{
 			method: 'GET',
 		}
@@ -41,7 +35,7 @@ export async function getItemPrice(item: Item, rarity: Rarity, enchantments: Enc
 async function getItems() {
 	const file = Bun.file(storageFolder + 'items.json')
 	if (!(await file.exists())) {
-		const res = await fetch('http://localhost:5173/api/item', {
+		const res = await fetch('https://darkscanner.dev/api/item', {
 			method: 'GET',
 		})
 		const items = (await res.json()) as Item[]
@@ -59,7 +53,7 @@ async function getItems() {
 export async function getRarities() {
 	const file = Bun.file(storageFolder + 'rarities.json')
 	if (!(await file.exists())) {
-		const res = await fetch('http://localhost:5173/api/rarity', {
+		const res = await fetch('https://darkscanner.dev/api/rarity', {
 			method: 'GET',
 		})
 		const rarities = (await res.json()) as Rarity[]
@@ -78,7 +72,7 @@ export async function getRarities() {
 export async function getEnchantments() {
 	const file = Bun.file(storageFolder + 'enchantments.json')
 	if (!(await file.exists())) {
-		const res = await fetch('http://localhost:5173/api/enchantment', {
+		const res = await fetch('https://darkscanner.dev/api/enchantment', {
 			method: 'GET',
 		})
 		const enchantments = (await res.json()) as Enchantment[]
@@ -96,7 +90,7 @@ export async function getEnchantments() {
 export async function getFixes() {
 	const file = Bun.file(storageFolder + 'fixes.json')
 	if (!(await file.exists())) {
-		const res = await fetch('http://localhost:5173/api/fix', {
+		const res = await fetch('https://darkscanner.dev/api/fix', {
 			method: 'GET',
 		})
 		const fixes = (await res.json()) as Fix[]
