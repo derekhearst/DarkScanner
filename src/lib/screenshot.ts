@@ -1,7 +1,6 @@
 import { Screenshots } from 'node-screenshots'
 import sharp from 'sharp'
 const DEBUG = false
-
 export async function captureItemDetails(x: number) {
 	let capturer = Screenshots.fromPoint(0, 0)
 

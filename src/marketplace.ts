@@ -2,15 +2,7 @@ import { env } from 'bun'
 import { ocrImage } from './lib/ocr'
 import { parseItemDetails, parsePrice } from './lib/parser'
 import { captureItemDetails, capturePrice } from './lib/screenshot'
-import { clickMouse, getMousePosition, moveMouse } from './lib/user32'
-
-const mouseWorker = new Worker(new URL('lib/mouse.worker.ts', import.meta.url).href)
-
-async function waitForMouseWorkerMessage(): Promise<boolean> {
-	return new Promise((resolve) => {
-		mouseWorker.onmessage = () => resolve(true)
-	})
-}
+import { clickMouse, getMousePosition, moveMouse, waitForMiddleMouse } from './lib/user32'
 
 async function wait(time: number): Promise<boolean> {
 	return new Promise((resolve) => {
@@ -21,19 +13,18 @@ async function wait(time: number): Promise<boolean> {
 console.log('Marketplace scanner started!')
 console.log('Please put your mouse over the refresh button and press the middle mouse button to log the position')
 
-await waitForMouseWorkerMessage()
+await waitForMiddleMouse()
 const refreshButtonPosition = getMousePosition()
-
 console.log(
 	"Please put your mouse inside the first item's static attribute diamond and press the middle mouse button to log the position"
 )
-await waitForMouseWorkerMessage()
+await waitForMiddleMouse()
 const itemPosition = getMousePosition()
 
 console.log(
 	"Please put your mouse over the first item's price diamond and press the middle mouse button to log the position"
 )
-await waitForMouseWorkerMessage()
+await waitForMiddleMouse()
 const pricePosition = getMousePosition()
 
 const itemCount = 10
@@ -50,7 +41,7 @@ for await (const line of console) {
 }
 
 console.log('Please focus the game window, and press the middle mouse button to start scanning the marketplace')
-await waitForMouseWorkerMessage()
+await waitForMiddleMouse()
 await wait(1000)
 
 for (let cycles = 0; cycles < scanCount; cycles++) {
@@ -88,12 +79,12 @@ for (let cycles = 0; cycles < scanCount; cycles++) {
 			if (!res.ok) {
 				console.log('Failed to send data to server')
 			}
+		} else if (!parsedItem.item) {
+			console.log('Failed to parse data', { ocrItem })
 		}
 
 		await wait(50)
 	}
-	await clickMouse(refreshButtonPosition.x, refreshButtonPosition.y)
+	await moveMouse(refreshButtonPosition.x, refreshButtonPosition.y)
+	await clickMouse()
 }
-
-// cleanup here
-mouseWorker.terminate()

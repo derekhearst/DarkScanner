@@ -1,6 +1,10 @@
 import { dlopen, FFIType } from 'bun:ffi'
 const DEBUG = false
 const user32 = dlopen('user32.dll', {
+	GetAsyncKeyState: {
+		args: [FFIType.int],
+		returns: FFIType.int,
+	},
 	GetCursorPos: {
 		args: [FFIType.ptr],
 		returns: FFIType.bool,
@@ -13,42 +17,15 @@ const user32 = dlopen('user32.dll', {
 		args: [FFIType.int, FFIType.int],
 		returns: FFIType.bool,
 	},
-
-	FindWindowA: {
-		// lpClassName: LPCSTR | null, lpWindowName: LPCSTR | null
-		args: [FFIType.cstring, FFIType.cstring],
-		returns: FFIType.int,
-	},
-	GetForegroundWindow: {
-		args: [],
-		returns: FFIType.int,
-	},
-	GetWindowTextA: {
-		args: [FFIType.int, FFIType.cstring, FFIType.int],
-		returns: FFIType.int,
-	},
-
-	SetForegroundWindow: {
-		args: [FFIType.int],
-		returns: FFIType.bool,
-	},
-
-	GetAsyncKeyState: {
-		args: [FFIType.int],
-		returns: FFIType.int,
-	},
 })
 
-const point = Buffer.alloc(8)
 export function getMousePosition() {
+	const point = Buffer.alloc(8)
 	user32.symbols.GetCursorPos(point)
 	return { x: point.readInt32LE(0), y: point.readInt32LE(4) }
 }
 
-export async function clickMouse(x?: number, y?: number) {
-	if (x && y) {
-		await moveMouse(x, y)
-	}
+export async function clickMouse() {
 	if (DEBUG) console.log('Clicking mouse')
 	await new Promise((resolve) => setTimeout(resolve, 10))
 	// dwFlags: 0x0002 = MOUSEEVENTF_LEFTDOWN
@@ -64,4 +41,16 @@ export async function moveMouse(x: number, y: number) {
 	if (!success) {
 		throw new Error('Failed to move mouse')
 	}
+}
+export async function waitForMiddleMouse() {
+	await new Promise((resolve) => {
+		setTimeout(() => {
+			const keyState = user32.symbols.GetAsyncKeyState(0x04)
+			if (keyState !== 0) {
+				resolve(undefined)
+			} else {
+				waitForMiddleMouse().then(resolve)
+			}
+		}, 100)
+	})
 }
